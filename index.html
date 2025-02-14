@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pricing Plans Carousel</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 40px;
+        background-color: #f5f5f5;
+      }
+
+      .carousel-container {
+        max-width: 400px;
+        border-radius: 1rem;
+        margin: 0 auto;
+      }
+
+      .carousel-inner {
+        text-align: center;
+        border-radius: 2rem;
+        /* min-height: 500px; */
+      }
+      .carousel-control-prev-icon {
+        background-image: url('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>') !important;
+      }
+
+      .plan-card {
+        /* max-width: 400px; */
+        margin: auto;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .carousel-item.active .plan-card {
+        transform: scale(1.05);
+        max-width: 400px;
+        /* max-height: 500px; */
+        border-radius: 1rem;
+      }
+
+      /* Alternating backgrounds */
+      .carousel-item:nth-child(odd) .plan-card {
+        background: white;
+        color: black;
+      }
+
+      .carousel-item:nth-child(even) .plan-card {
+        background: #1E1E1E;
+        color: white;
+      }
+
+      .plan-title {
+        font-size: 24px;
+        margin-bottom: 15px;
+        font-weight: bold;
+      }
+
+      .discount-badge {
+        background: #ff4d4d;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+        display: inline-block;
+        margin-bottom: 15px;
+      }
+
+      .price {
+        font-size: 36px;
+        font-weight: bold;
+        margin: 20px 0;
+      }
+
+      .features-list {
+        list-style: none;
+        padding: 0;
+        margin: 30px 0;
+        text-align: left;
+      }
+
+      .features-list li {
+        margin-bottom: 15px;
+        padding-left: 25px;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="%234CAF50" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>')
+          no-repeat left center;
+      }
+
+      .choose-button {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .carousel-item:nth-child(odd) .choose-button {
+        background: #6557FF;
+        color: white;
+      }
+
+      .carousel-item:nth-child(even) .choose-button {
+        background: white;
+        color: #6557FF;
+      }
+
+      /* Modified controls styling */
+      .carousel-controls-container {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .carousel-control-prev,
+      .carousel-control-next {
+        position: relative;
+        width: auto;
+        height: auto;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+        padding: 20px;
+        transition: background-color 0.3s ease;
+      }
+
+      .carousel-control-prev:hover,
+      .carousel-control-next:hover {
+        background: rgba(0, 0, 0, 0.2);
+      }
+
+      .carousel-control-prev-icon,
+      .carousel-control-next-icon {
+        background-size: 1.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      .plan-card hr{
+        padding: 0 1rem;
+        background-color: #D4D4D4;
+        width: 100%;
+
+      }
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <!-- Carousel Section -->
+      <div
+        id="pricingCarousel"
+        class="carousel slide carousel-container"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-inner">
+          <!-- Personal Plan -->
+          <div class="carousel-item active">
+            <div class="plan-card">
+              <div class="discount-badge">30% OFF</div>
+              <h2 class="plan-title">Personal</h2>
+              <div class="price">$12.99</div>
+              <hr>
+              <ul class="features-list">
+                <li>Create personal dashboard.</li>
+                <li>Organize your notes and workflows.</li>
+                <li>5GB of space.</li>
+              </ul>
+              <button class="choose-button">Choose this plan.</button>
+            </div>
+          </div>
+
+          <!-- Pro Plan -->
+          <div class="carousel-item">
+            <div class="plan-card">
+              <h2 class="plan-title">Pro Plan</h2>
+              <div class="price">$24.90</div>
+              <hr>
+              <ul class="features-list">
+                <li>All features in Pro Plan</li>
+                <li>200GB of shared space</li>
+                <li>Unlock Database to manage your data</li>
+              </ul>
+              <button class="choose-button">Choose this plan</button>
+            </div>
+          </div>
+
+          <!-- Enterprise Plan -->
+          <div class="carousel-item">
+            <div class="plan-card">
+              <h2 class="plan-title">Enterprise</h2>
+              <div class="price">$54.90</div>
+              <hr>
+              <ul class="features-list">
+                <li>500GB/5 shared spaces</li>
+                <li>Advanced security features</li>
+                <li>Priority support</li>
+              </ul>
+              <button class="choose-button">Choose this plan</button>
+            </div>
+          </div>
+
+          <!-- Business Plan -->
+          <div class="carousel-item">
+            <div class="plan-card">
+              <h2 class="plan-title">Business</h2>
+              <div class="price">$99.99</div>
+              <hr>
+              <ul class="features-list">
+                <li>1TB storage</li>
+                <li>24/7 Customer Support</li>
+                <li>Custom Integrations</li>
+              </ul>
+              <button class="choose-button">Choose this plan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carousel Controls moved below -->
+    <div class="carousel-controls-container">
+        <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#pricingCarousel"
+        data-bs-slide="prev"
+      >
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#pricingCarousel"
+        data-bs-slide="next"
+      >
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+      
+    </div>
+  </body>
+</html>
